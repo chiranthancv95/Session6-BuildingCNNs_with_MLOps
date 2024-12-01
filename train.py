@@ -41,18 +41,18 @@ def main():
     # Training settings
     batch_size = 32
     epochs = 20
-    lr = 0.05
+    lr = 0.08
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    # Enhanced Data transformations with more augmentation
+    # Enhanced Data transformations with more aggressive augmentation
     train_transform = transforms.Compose([
-        transforms.RandomRotation((-10.0, 10.0), fill=(0,)),
-        transforms.RandomAffine(degrees=0, translate=(0.1, 0.1), scale=(0.9, 1.1), fill=(0,)),
-        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        transforms.RandomRotation((-12.0, 12.0), fill=(0,)),
+        transforms.RandomAffine(degrees=0, translate=(0.12, 0.12), scale=(0.85, 1.15), fill=(0,)),
+        transforms.ColorJitter(brightness=0.25, contrast=0.25),
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,)),
-        transforms.RandomErasing(p=0.2, scale=(0.02, 0.1))
+        transforms.RandomErasing(p=0.25, scale=(0.02, 0.12))
     ])
     
     test_transform = transforms.Compose([
@@ -76,7 +76,7 @@ def main():
     print(f"Number of trainable parameters: {count_parameters}")
 
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9, nesterov=True, 
-                         weight_decay=3e-4)
+                         weight_decay=2e-4)
     
     # Modified learning rate schedule
     steps_per_epoch = len(train_loader)
@@ -85,10 +85,10 @@ def main():
         max_lr=lr,
         epochs=epochs,
         steps_per_epoch=steps_per_epoch,
-        pct_start=0.3,  # Longer warm-up
-        div_factor=20,  # Less aggressive initial lr reduction
-        final_div_factor=1e3,  # Less aggressive final lr reduction
-        anneal_strategy='cos'  # Cosine annealing
+        pct_start=0.25,
+        div_factor=25,
+        final_div_factor=1e4,
+        anneal_strategy='cos'
     )
 
     best_accuracy = 0
