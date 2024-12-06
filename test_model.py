@@ -22,7 +22,7 @@ def test_dropout_usage():
 
 def test_gap_usage():
     model = MNISTNet()
-    has_gap = any(isinstance(m, torch.nn.AdaptiveAvgPool2d) for m in model.modules())
+    has_gap = any(isinstance(m, torch.nn.AvgPool2d) for m in model.modules())
     assert has_gap, "Model should use Global Average Pooling"
 
 def test_forward_pass():
