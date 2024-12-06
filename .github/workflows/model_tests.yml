@@ -1,4 +1,4 @@
-name: Model Tests
+name: ML Pipeline
 
 on: [push, pull_request]
 
