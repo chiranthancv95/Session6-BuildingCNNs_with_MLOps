@@ -331,6 +331,3 @@ loss=0.021419083699584007 batch_id=403:  86%|████████▌ | 404/4
 loss=0.020774537697434425 batch_id=468: 100%|██████████| 469/469 [00:24<00:00, 19.29it/s]Training Accuracy on Epoch 19: 59547/60000 (99.25%)
 
 Test set: Average loss: 0.0197, Accuracy: 9937/10000 (99.37%)
-
-
-Test set: Average loss: 0.0197, Accuracy: 9937/10000 (99.370000%)
